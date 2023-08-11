@@ -63,7 +63,7 @@
         }
 
         /* Style for the input fields and labels */
-        .login .input-group input[type="text"],
+        .login .input-group input[type="email"],
         .login .input-group input[type="password"] {
             width: 100%;
             padding: 5px;
@@ -83,9 +83,9 @@
             transition: 0.3s;
         }
 
-        .login .input-group input[type="text"]:focus + span,
+        .login .input-group input[type="email"]:focus + span,
         .login .input-group input[type="password"]:focus + span,
-        .login .input-group input[type="text"]:valid + span,
+        .login .input-group input[type="email"]:valid + span,
         .login .input-group input[type="password"]:valid + span {
             top: -10px;
             left: 5px;
@@ -99,7 +99,7 @@
             display: block;
             margin-top: 10px;
         }
-        
+
     </style>
 </head>
 <body>
@@ -107,8 +107,8 @@
         <h2>LogIn</h2>
         <form>
             <div class="input-group">
-                <input type="text" name="" required="required">
-                <span>Username</span>
+                <input type="email" name="" required="required">
+                <span>Email</span>
             </div>
 
             <div class="input-group">
