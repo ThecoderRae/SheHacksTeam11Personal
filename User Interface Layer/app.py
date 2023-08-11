@@ -12,7 +12,7 @@ users = {
 }
 
 # Login route
-@app.route('/http://127.0.0.1:5000')
+@app.route('/http://127.0.0.1:5000\login')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
