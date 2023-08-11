@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             font-family: poppins, sans-serif;
-            background-image: url('/static/mukuru-card.jpg'); /* i need a relative path  */
+            background-image: url('/static/mukuru-card.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -22,7 +22,18 @@
             box-sizing: border-box;
             padding: 40px;
             background: #fff;
-            border: 2px solid black;
+            border: 2px solid white;
+            position: relative;
+            animation: fade 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes fade {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
         }
 
         .login h2 {
@@ -30,6 +41,8 @@
             padding: 0;
             font-size: 30px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 2;
         }
 
         .login .input-group {
@@ -37,11 +50,61 @@
             width: 100%;
             margin-bottom: 25px;
         }
+
+        /* Style the submit button */
+        .login .input-group input[type="submit"] {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10%;
+        }
+
+        /* Style for the input fields and labels */
+        .login .input-group input[type="text"],
+        .login .input-group input[type="password"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .login .input-group span {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            padding: 2px;
+            pointer-events: none;
+            color: #777;
+            font-size: 12px;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .login .input-group input[type="text"]:focus + span,
+        .login .input-group input[type="password"]:focus + span,
+        .login .input-group input[type="text"]:valid + span,
+        .login .input-group input[type="password"]:valid + span {
+            top: -10px;
+            left: 5px;
+            font-size: 10px;
+            color: orange;
+        }
+
+         /* Style for the "Forgot Password?" link */
+         .login a {
+            color: orange;
+            display: block;
+            margin-top: 10px;
+        }
+        
     </style>
 </head>
 <body>
     <div class="login">
-        <h2>Sign In</h2>
+        <h2>LogIn</h2>
         <form>
             <div class="input-group">
                 <input type="text" name="" required="required">
@@ -54,7 +117,7 @@
             </div>
 
             <div class="input-group">
-                <input type="submit" name="" value="Login">
+                <input type="submit" name="" value="Submit">
             </div>
         </form>
         <a href="#" style="text-align: center;">Forgot Password?</a>
