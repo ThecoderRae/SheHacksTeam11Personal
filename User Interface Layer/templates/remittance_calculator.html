@@ -204,7 +204,24 @@
                         $('#calculated_cost').append(resultText);
                     });
                 }
-            );
+
+                ).fail(function(xhr, status, error) {
+
+                // Handle AJAX request failure here
+                console.error("AJAX request failed:", error);
+                
+                // This is specific error handling based on response status codes
+                if (xhr.status === 404) {
+                    // Handle Not Found error
+                    $('#error_message').text("Remittance calculation endpoint not found.");
+                } else if (xhr.status === 500) {
+                    // Handle Internal Server Error
+                    $('#error_message').text("An internal server error occurred. Please contact support.");
+                } else {
+                    // Handle other types of errors
+                    $('#error_message').text("An error occurred while processing your request.");
+                }
+            });
         }
 
         // Here we add event listeners for changes in input fields and dropdown selections
