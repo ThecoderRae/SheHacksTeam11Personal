@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import hashlib
 import requests
+import webbrowser 
 
 app = Flask(__name__)
 app.secret_key = '1234abcd'
@@ -28,12 +29,20 @@ def login():
 # Dashboard route
 @app.route('/remittance_calculator')
 def remittance_calculator():
-     if request.method == 'GET':
-        all_countries = get_all_countries()
-        product_types = get_products_types()
-        currencies = get_pay_in_currencies()
+    if request.method == 'GET':
+        try:
+            all_countries = get_all_countries()
+            product_types = get_products_types()
+            currencies = get_pay_in_currencies()
+
+            return render_template('remittance_calculator.html', countries=all_countries['items'], product_types=product_types['items'], currencies=currencies['items'])
+        except requests.exceptions.RequestException as e:
+            error_message = "Error fetching data from external APIs. Please try again later."
+            return render_template('error.html', error_message=error_message)
         
-        return render_template('remittance_calculator.html',countries=all_countries['items'],product_types =product_types['items'],currencies=currencies['items'])
+    elif request.method == 'POST':
+        # Handle POST request logic if needed
+        pass  # Placeholder for handling POST requests
 
 
 def get_all_countries():
@@ -110,5 +119,14 @@ def calculate_remit_cost():
 
 
 if __name__ == '__main__':
-     app.run(debug=True)
+    # host = '127.0.0.1'  # Host IP
+    # port = 5000  # Port number
+
+    # # Open the specified URL in the default web browser
+    # url_to_open = f'http://{host}:{port}/remittance_calculator'
+    # webbrowser.open(url_to_open)
+
+    # # Run the Flask app
+    # app.run(host=host, port=port, debug=False) 
+    app.run(debug=True)
      
