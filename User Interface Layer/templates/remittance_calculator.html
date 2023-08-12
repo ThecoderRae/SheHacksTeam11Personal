@@ -97,8 +97,10 @@
             <div class="input-group">
                 <!-- <label for="pay_out_country">Receiving In:</label> -->
                 <select id="pay_out_country" name="pay_out_country" required>
+
                       <option value="" disabled selected>Select a country</option>
                     <!-- Populate with API data -->
+
                     {% for country in countries %}
                         <option value="{{ country['code'] }}">{{ country['name'] }}</option>
                     {% endfor %}
@@ -108,8 +110,10 @@
             <div class="input-group">
                 <!-- <label for="product_type">Product Type:</label> -->
                 <select id="product_type" name="product_type" required>
+
                       <option value="" disabled selected>Select a product</option>
                     <!-- Populate with API data -->
+
                     {% for type in product_types %}
                     <option value="{{ type['name'] }}">{{ type['name'] }}</option>
                 {% endfor %}
