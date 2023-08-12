@@ -68,11 +68,64 @@
             color: orange;
         }
 
-        #calculated_cost {
+        .card-row {
+    display: flex; /* Display the cards in a row */
+    justify-content: space-between; /* Distribute space between cards */
+    margin-top: 20px; /* Add some space between the cards and the form */
+}
+
+.card {
+    flex: 1; /* Distribute available space evenly among cards */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Rounded edges */
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px; /* Add right margin for spacing between cards */
+}
+
+.rounded-boxes {
+    display: flex;
+    align-items: center;
+}
+
+.box-options {
+    display: flex;
+}
+
+.box-option {
+    flex: 1;
+    padding: 30px 10px; /* Adjust the vertical padding to increase the height */
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Add border color transition */
+}
+
+.box-option:last-child {
+    margin-right: 0;
+}
+
+.box-option:hover {
+    background-color: #f2f2f2;
+}
+
+/* Add style for selected box */
+.box-option.selected {
+    background-color: #ff5100; /* Change background color for selected box */
+    border-color: #ff5100; /* Change border color for selected box */
+    color: white; /* Change text color for better contrast */
+}
+
+#calculated_cost {
         background-color: #f2f2f2; /* Greyish background color */
         border-radius: 10px; /* Rounded edges */
         padding: 10px; /* Add some padding for spacing */
     }
+
 
     </style>
 </head>
@@ -101,7 +154,7 @@
                 </select>
             </div>
 
-            <div class="input-group">
+            <div class="input-group" style="display: none;">
                 <label for="product_type">Product Type:</label>
                 <select id="product_type" name="product_type" required>
                     <!-- Populate with API data -->
@@ -110,6 +163,7 @@
                 {% endfor %}
                 </select>
             </div>
+
 
             <div class="input-group">
                 <label for="pay_in_currency">Pay In Currency:</label>
@@ -134,18 +188,20 @@
                 <input type="number" id="pay_in_amount" name="pay_in_amount" required>
             </div>
 
+ 
 
-            <!-- <div class="input-group">
-                <label for="pay_out_amount">Pay Out Amount:</label>
-                <input type="number" id="pay_out_amount" name="pay_out_amount" readonly>
-            </div> -->
-
+ <!-- Replacing the dropdown with clickable boxes -->
+ <div class="input-group" style="margin-top: 10px;">
+    <label for="product_type">Product Type:</label>
+    <div class="box-options">
+        <div class="box-option" data-value="Bank Top-up">Bank Top Up</div>
+        <div class="box-option" data-value="Cash Collection">Cash Collection</div>
+        <div class="box-option" data-value="Mobile Wallet">Mobile Wallet</div>
+    </div>
+ 
+</div>
 
             
-
-            <!-- <div class="input-group">
-                <input type="submit" id="calculate_button" value="Calculate">
-            </div> -->
         </form>
         <div class="result" id="calculated_cost"></div>
       
@@ -155,10 +211,27 @@
 
 <!-- Add this JavaScript code to your HTML template -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const boxOptions = document.querySelectorAll(".box-option");
+        const productTypeSelect = document.getElementById("product_type");
+
+        boxOptions.forEach((box) => {
+            box.addEventListener("click", function () {
+                const selectedValue = this.getAttribute("data-value");
+                productTypeSelect.value = selectedValue;
+            });
+        });
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
     $(document).ready(function () {
-
-        
         function updateCost() {
             const payInCountry = $('#pay_in_country').val();
             const payOutCountry = $('#pay_out_country').val();
@@ -167,6 +240,10 @@
             const payOutCurrency = $('#pay_out_currency').val();
             const payInAmount = $('#pay_in_amount').val();
             const payOutAmount = $('#pay_out_amount').val();
+
+            // Get the selected product type from the hidden select element
+            
+
 
             $.get(
                 '/calculate',
@@ -199,6 +276,15 @@
 
         // Add event listeners for changes in input fields and dropdown selections
         $('#pay_in_country, #pay_out_country, #product_type, #pay_in_currency, #pay_out_currency, #pay_in_amount').on('input', function () {
+            updateCost();
+        });
+
+            // Add event listener to boxes to toggle 'selected' class and update
+            $('.box-option').on('click', function () {
+            $('.box-option').removeClass('selected');
+            $(this).addClass('selected');
+            const selectedValue = $(this).attr('data-value');
+            $('#product_type').val(selectedValue); // Update the product type value
             updateCost();
         });
 

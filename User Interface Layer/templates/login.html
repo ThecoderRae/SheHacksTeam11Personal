@@ -105,14 +105,14 @@
 <body>
     <div class="login">
         <h2>LogIn</h2>
-        <form>
+        <form action="{{ url_for('login') }}" method="POST">
             <div class="input-group">
-                <input type="email" name="" required="required">
+                <input type="email" name="email" required="required">
                 <span>Email</span>
             </div>
 
             <div class="input-group">
-                <input type="password" name="" required="required">
+                <input type="password" name="password" required="required">
                 <span>Password</span>
             </div>
 
@@ -120,7 +120,7 @@
                 <input type="submit" name="" value="Submit">
             </div>
         </form>
-        <a href="#" style="text-align: center;">Forgot Password?</a>
+        <!-- <button href="" style="text-align: center;">Forgot Password?</button> -->
     </div>
 </body>
 </html>
