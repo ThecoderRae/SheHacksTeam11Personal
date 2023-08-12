@@ -19,7 +19,6 @@ def login():
         
 
         if email == 'tatendakbeni@gmail.com' and password == 'password123': 
-            # return render_template('remittance_calculator.html')
              return redirect(url_for('remittance_calculator'))
     return render_template('login.html')
 
@@ -44,10 +43,8 @@ def get_all_countries():
 
 def get_products_types():
     api_url = "https://api-uct.mukuru.com/taurus/v1/resources/product-types"
-
     response = requests.get(api_url)
     product_types_data = response.json()
-
     return product_types_data
 
 def get_all_countries():
@@ -108,30 +105,6 @@ def calculate_remit_cost():
     # calculated_cost = result.get('calculated_cost', 'N/A')
     # print(result)
     return jsonify({'remittance_costs': remittance_costs})
-
-# @app.route('/get_price', methods=['GET'])
-# def get_price():
-#     # Get the pay_in_country parameter from the query string
-#     # pay_in_country = request.args.get('pay_in_country')
-#     print("Inside getprice")
-#     pay_in_country = "Angola"
-   
-#     if pay_in_country:
-#         # Define the URL with the base endpoint and query parameters
-#         url = f"https://api-uct.mukuru.com/taurus/v1/products/price-check?pay_in_country"
-       
-#         # Make a GET request to the API
-#         response = requests.get(url)
-       
-#         if response.status_code == 200:
-#             data = response.json()
-#             print(data)
-#             return jsonify(data)
-#         else:
-#             return f"Error: {response.status_code}", response.status_code
-#     else:
-#         return "Missing pay_in_country parameter", 400
-
 
 
 if __name__ == '__main__':
