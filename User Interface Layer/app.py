@@ -20,7 +20,9 @@ def login():
 
         if email == 'tatendakbeni@gmail.com' and password == 'password123': 
              return redirect(url_for('remittance_calculator'))
-    return render_template('login.html')
+        else:
+            error_message = "Invalid email or password. Please try again."
+            return render_template('login.html', error_message=error_message)
 
 
 # Dashboard route
