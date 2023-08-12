@@ -21,6 +21,7 @@
             background: white;
             border: 2px solid #ccc;
             border-radius: 10px;
+            border: 1px solid black;
         }
 
         h2 {
@@ -60,6 +61,7 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
+          
         }
 
         .result {
@@ -85,6 +87,7 @@
             <div class="input-group">
                 <label for="pay_in_country">Sending From:</label>
                 <select id="pay_in_country" name="pay_in_country" required>
+                      <option value="" disabled selected>Select a country</option>
                     {% for country in countries %}
                         <option value="{{ country['code'] }}">{{ country['name'] }}</option>
                     {% endfor %}
@@ -92,8 +95,9 @@
             </div>
             
             <div class="input-group">
-                <label for="pay_out_country">Receiving In:</label>
+                <!-- <label for="pay_out_country">Receiving In:</label> -->
                 <select id="pay_out_country" name="pay_out_country" required>
+                      <option value="" disabled selected>Select a country</option>
                     <!-- Populate with API data -->
                     {% for country in countries %}
                         <option value="{{ country['code'] }}">{{ country['name'] }}</option>
@@ -102,8 +106,9 @@
             </div>
 
             <div class="input-group">
-                <label for="product_type">Product Type:</label>
+                <!-- <label for="product_type">Product Type:</label> -->
                 <select id="product_type" name="product_type" required>
+                      <option value="" disabled selected>Select a product</option>
                     <!-- Populate with API data -->
                     {% for type in product_types %}
                     <option value="{{ type['name'] }}">{{ type['name'] }}</option>
@@ -112,8 +117,9 @@
             </div>
 
             <div class="input-group">
-                <label for="pay_in_currency">Pay In Currency:</label>
+                <!-- <label for="pay_in_currency">Pay In Currency:</label> -->
                 <select id="pay_in_currency" name="pay_in_currency" required>
+                      <option value="" disabled selected>Select a currency</option>
                     {% for currency in currencies %}
                         <option value="{{ currency['code'] }}">{{ currency['code'] }}</option>
                     {% endfor %}
@@ -121,8 +127,9 @@
             </div>
 
             <div class="input-group">
-                <label for="pay_out_currency">Pay Out Currency:</label>
+                <!-- <label for="pay_out_currency">Pay Out Currency:</label> -->
                 <select id="pay_out_currency" name="pay_out_currency" required>
+                      <option value="" disabled selected>Select a currency</option>
                     {% for currency in currencies %}
                         <option value="{{ currency['code'] }}">{{ currency['code'] }}</option>
                     {% endfor %}
@@ -139,7 +146,6 @@
                 <label for="pay_out_amount">Pay Out Amount:</label>
                 <input type="number" id="pay_out_amount" name="pay_out_amount" readonly>
             </div> -->
-
 
             
 
